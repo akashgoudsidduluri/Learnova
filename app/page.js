@@ -214,7 +214,8 @@ export default function AboutPage() {
     setScrollY(window.scrollY);
   }, []);
 
-  const handleAnimationComplete = useCallback(() => {}, []);
+ const handleAnimationComplete = useCallback(() => {
+  }, []);
 
   useEffect(() => {
     // Throttled event listeners

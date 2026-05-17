@@ -6,7 +6,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Home } from "lucide-react";
 import DarkVeil from "@/components/ui-block/DarkVeil";
 
-
 const PARTICLES_DATA = [
   { id: 1, left: 16, top: 22, delay: 0, duration: 10 },
   { id: 2, left: 64, top: 78, delay: 1.5, duration: 12 },
