@@ -257,24 +257,24 @@ export function Navbar() {
               {/* Enhanced Auth Section */}
               {isAuthenticated ? (
                 <div className="flex items-center space-x-2 md:space-x-4 ml-2 md:ml-6">
-                  <Link href="/attendance" className="hidden md:block">
-                    <Button className="relative bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 group overflow-hidden">
+                  <Button asChild className="hidden md:block relative bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 group overflow-hidden">
+                    <Link href="/attendance">
                       <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <span className="relative flex items-center">
                         Mark Attendance
                         <Sparkles className="ml-2 h-4 w-4 transition-all duration-300" />
                       </span>
-                    </Button>
-                  </Link>
-                  <Link href="/notices" className="hidden lg:block">
-                    <Button className="relative bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 group overflow-hidden">
+                    </Link>
+                  </Button>
+                  <Button asChild className="hidden lg:block relative bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 group overflow-hidden">
+                    <Link href="/notices">
                       <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <span className="relative flex items-center">
                         Notice Board
                         <Sparkles className="ml-2 h-4 w-4 transition-all duration-300" />
                       </span>
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
 
                   {/* Enhanced User Dropdown */}
                   <div className="relative" ref={dropdownRef}>
@@ -402,15 +402,15 @@ export function Navbar() {
                 </div>
               ) : (
                 <div className="ml-2 md:ml-6">
-                  <Link href="/auth">
-                    <Button className="relative bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 group overflow-hidden">
+                  <Button asChild className="relative bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 group overflow-hidden">
+                    <Link href="/auth">
                       <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <span className="relative flex items-center">
                         Login / Signup
                         <Sparkles className="ml-2 h-4 w-4 transition-all duration-300" />
                       </span>
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               )}
             </div>
@@ -447,6 +447,8 @@ export function Navbar() {
               <Button
                 variant="ghost"
                 size="sm"
+                aria-label="Toggle Menu"
+                aria-expanded={isMenuOpen}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-white hover:text-accent hover:bg-white/10 transition-all duration-300 hover:scale-110 relative group"
               >
@@ -538,18 +540,18 @@ export function Navbar() {
 
                 {/* Quick Actions */}
                 <div className="grid grid-cols-2 gap-3">
-                  <Link href="/attendance" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-accent/90 to-blue-500/90 hover:from-accent hover:to-blue-600 text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-200">
+                  <Button asChild className="w-full bg-gradient-to-r from-accent/90 to-blue-500/90 hover:from-accent hover:to-blue-600 text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-200">
+                    <Link href="/attendance" onClick={() => setIsMenuOpen(false)}>
                       <UserCheck className="h-4 w-4 mr-2" />
                       Attendance
-                    </Button>
-                  </Link>
-                  <Link href="/notices" onClick={() => setIsMenuOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-purple-500/90 to-pink-500/90 hover:from-purple-600 hover:to-pink-600 text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-200">
+                    </Link>
+                  </Button>
+                  <Button asChild className="w-full bg-gradient-to-r from-purple-500/90 to-pink-500/90 hover:from-purple-600 hover:to-pink-600 text-white text-sm font-medium shadow-md hover:shadow-lg transition-all duration-200">
+                    <Link href="/notices" onClick={() => setIsMenuOpen(false)}>
                       <Bell className="h-4 w-4 mr-2" />
                       Notices
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </div>
             )}
@@ -614,12 +616,12 @@ export function Navbar() {
                   Sign Out
                 </Button>
               ) : (
-                <Link href="/auth" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 group">
+                <Button asChild className="w-full bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 group">
+                  <Link href="/auth" onClick={() => setIsMenuOpen(false)}>
                     <Sparkles className="h-4 w-4 mr-3 group-hover:animate-spin transition-all duration-300" />
                     Get Started
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               )}
               <div className="text-center">
                 <p className="text-white/40 text-xs">
