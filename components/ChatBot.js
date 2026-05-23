@@ -27,6 +27,7 @@ import {
 import ReactMarkdown from "react-markdown";
 
 import { CONTACT_INFO } from "../constants/contact";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 const categories = [
   {
@@ -209,6 +210,9 @@ const MessageBubble = ({
 };
 
 const LearnovaChatbot = () => {
+  // Get the Firebase user object so we can fetch a fresh ID token per request
+  const { user } = useAuthContext();
+
   const [messages, setMessages] =
     useState([
       {
@@ -330,6 +334,14 @@ const LearnovaChatbot = () => {
         setIsLoading(true);
 
         try {
+          // Fetch a fresh Firebase ID token to authenticate the request.
+          // getIdToken() returns the cached token and only fetches a new one
+          // when it is within 5 minutes of expiry, so this is not expensive.
+          if (!user) {
+            throw new Error("Not authenticated");
+          }
+          const idToken = await user.getIdToken();
+
           const response =
             await fetch("/api/groq", {
               method: "POST",
@@ -337,6 +349,9 @@ const LearnovaChatbot = () => {
               headers: {
                 "Content-Type":
                   "application/json",
+                // ✅ Fixed: Send the Firebase ID token so the server
+                // can verify the user identity via verifyFirebaseToken()
+                Authorization: `Bearer ${idToken}`,
               },
 
               body: JSON.stringify({
@@ -379,6 +394,10 @@ const LearnovaChatbot = () => {
             error
           );
 
+          // Show a clearer message if the user is not logged in
+          const isAuthError =
+            error.message === "Not authenticated";
+
           setMessages((prev) => [
             ...prev,
             {
@@ -388,7 +407,9 @@ const LearnovaChatbot = () => {
               role:
                 "assistant",
 
-              content: `**Offline Mode:** ${fallbackResponses[currentCategory]}`,
+              content: isAuthError
+                ? "**Please sign in** to use the AI chatbot."
+                : `**Offline Mode:** ${fallbackResponses[currentCategory]}`,
 
               timestamp:
                 Date.now(),
@@ -402,6 +423,7 @@ const LearnovaChatbot = () => {
         inputMessage,
         isLoading,
         currentCategory,
+        user,
       ]
     );
 
